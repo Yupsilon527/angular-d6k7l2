@@ -1,39 +1,20 @@
-
-<div *ngIf="mobile; else desktopsite">
-    <div *ngIf="picked_nick; else showLogin">
+ <div id="mainpage" *ngIf="currentUser; else showLogin">
       <div class="main">
+         <mat-card id="logincardm" *ngIf="userup" #logininfo >
+           <h1 *ngIf="currentUser" id="user-name">Logged in as {{ (user | async)?.displayName }}</h1>
+           <button mat-raised-button *ngIf="currentUser" id="sign-out" (click)=" userup=false; logout()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white" color="accent">
+              Sign-out
+          </button>       
+         </mat-card>
+         <button mat-icon-button *ngIf="currentUser" id="user-picm" [ngStyle]="{'background-image': 'url(' + profilePic + ')'}" (click)="userup = !userup"></button>
          <mat-form-field  id="nickname" class="inputboxm">
             <input matInput #mess placeholder="Type a message..." type="text" maxlength="250"  (keyup.enter)="sendMessage(mess.value); mess.value=''">
         </mat-form-field>   
-        <button mat-raised-button color="primary"	 class="sendbtnm" (click)="sendMessage(mess.value); mess.value=''">✉</button>         
+        <button mat-raised-button color="primary" class="sendbtnm" (click)="sendMessage(mess.value); mess.value=''">✉</button>         
       </div>
     </div>
     <ng-template #showLogin>
-      <div class="main">
-        <mat-form-field id="nickname" class="inputboxm"  >
-            <input matInput #nick  placeholder="Nickname" type="text" maxlength="30" (keyup.enter)="pickNick(nick.value)">
-        </mat-form-field>   
-      <button mat-raised-button color="primary"	 class="sendbtnm" (click)="pickNick(nick.value)">✓</button>
+      <div class="main">           
+        <button mat-raised-button color="primary" class="loginboxm" (click)="login()">Log in to send messages.</button>
       </div>
     </ng-template>
-</div>
-<ng-template #desktopsite>
-  <div *ngIf="picked_nick; else showLogin">
-      <div class="main">
-         <mat-form-field  id="nickname" class="inputbox">
-            <input matInput #mess placeholder="Type a message..." type="text" maxlength="250"  (keyup.enter)="sendMessage(mess.value); mess.value=''">
-        </mat-form-field>   
-        <button mat-raised-button color="primary"	 class="sendbtn" (click)="sendMessage(mess.value); mess.value=''">Send</button>      
-      </div>
-    </div>
-    <ng-template #showLogin>
-      <div class="main">
-        <mat-form-field id="nickname" class="inputbox"  >
-            <input matInput #nick  placeholder="Nickname" type="text" maxlength="30" (keyup.enter)="pickNick(nick.value)">
-        </mat-form-field>   
-      <button mat-raised-button color="primary"	 class="nickbtn" (click)="pickNick(nick.value)">Pick Nickname</button>
-      </div>
-    </ng-template>
-</ng-template>
-    
-  

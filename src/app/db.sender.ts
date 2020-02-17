@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
@@ -15,17 +15,31 @@ export interface Message {  id: string; sender: string; message: string; }
  
 })
 export class FirebaseSender {
-  mobile=false;
-  nick =  "";
-  picked_nick=false;
-  items: Observable<Message[]>;
+
+  user: Observable<firebase.User>;
+  currentUser: firebase.User;
+  userup=false;
+
+  mobile=false;  
+  profilePic: string;
   constructor(public db: AngularFireDatabase,public auth: AngularFireAuth) {
-     this.items = this.db.list<Message>(environment.currentChatroom, ref => ref.limitToLast(12)).valueChanges();
+
      this.mobile = environment.mobile;
+     
+    this.user = auth.authState;
+      this.user.subscribe((user: firebase.User) => {
+      console.log(user);
+      this.currentUser = user;
+
+      if (user) {
+        this.profilePic=this.currentUser.photoURL;
+      } else { 
+        this.profilePic="https://blog.hubspot.com/hubfs/image8-2.jpg";
+      }
+    });
   }
-  /*login() {
+  login() {
     this.auth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-    
   }
   logout() {
     this.auth.auth.signOut();
@@ -33,20 +47,20 @@ export class FirebaseSender {
   OnDestroy()
   {
     this.logout();
-  }*/
-  pickNick(value: string) { 
+  }
+  /*pickNick(value: string) { 
     this.nick = value;
     console.log("nick set to "+this.nick); 
     if (value!="")
     {
       this.picked_nick=true;
     }
-  }
+  }*/
   sendMessage(value: string){
-    if (value) {
+    if (value && this.isLoggedIn()) {
       const messages = this.db.list(environment.currentChatroom);
       messages.push({
-        sender: this.nick,
+        sender: this.currentUser.displayName,//this.nick
         message: value,
         time: new Date().getTime()
       }).then(() => {
@@ -55,39 +69,13 @@ export class FirebaseSender {
         console.error(err);
       });
     }
-  }
-  sendImage(event: any) {
-
-    console.log("sending image...")
-    event.preventDefault();
-    const file = event.target.files[0];
-
-    if (!file.type.match('image.*')) {
-      return;
+  } 
+  
+  isLoggedIn() {
+    if (this.currentUser) {
+      return true;
     }
-      const messages = this.db.list(environment.currentChatroom);
 
-      messages.push({
-        sender: this.nick,
-        time: new Date().getTime(),
-        imageUrl: 'https://www.google.com/images/spin-32.gif',
-      }).then((data) => {
-        const filePath = `${environment.currentChatroom}/${data.key}/${file.name}`;
-        console.log("mark")
-        return firebase.storage().ref(filePath).put(file)
-          .then((snapshot) => {
-            const fullPath = snapshot.metadata.fullPath;
-            const imageUrl = firebase.storage().ref(fullPath).toString();
-            return firebase.storage().refFromURL(imageUrl).getMetadata();
-          }).then((metadata) => {
-            return data.update({
-              imageUrl: metadata.downloadURLs[0]
-            });
-          });
-      }).then(console.log, (err) => {
-        console.log("mock")
-        console.error(err);
-      });
-    
-  }
+    return false;
+  };
 }

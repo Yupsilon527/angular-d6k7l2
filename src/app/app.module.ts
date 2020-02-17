@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuth }  from  '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { DeviceDetectorModule } from 'ngx-device-detector';
-import { MatSnackBarModule } from '@angular/material';
+import {  AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -23,6 +23,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   imports:      [ 
@@ -31,6 +32,7 @@ import {MatIconModule} from '@angular/material/icon';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     DeviceDetectorModule.forRoot(),
+    AngularFireAuthModule,
 
     BrowserAnimationsModule,
     MatDividerModule,
@@ -40,6 +42,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatInputModule,
     MatFormFieldModule,
     MatSidenavModule,
+    MatCardModule,
     MatIconModule,
     ],
   declarations: [ AppComponent, MessageLister, FirebaseSender ],

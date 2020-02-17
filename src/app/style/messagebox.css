@@ -6,10 +6,6 @@
   font-size:25px;
 }
 
-.page{
-  background-color:red;
-  overflow:hidden;
-}
 
 .messagecontainer {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
@@ -18,13 +14,14 @@
   display: flex;
   flex-direction: column;
   overflow-y:auto;
+  overflow-x:unset;
   position:fixed;
   height:calc( 100% - 110px);
+  width:96%
 }
 
 .message
 {
-  color:grey;  
   display: block;
   padding-bottom:2px;
   width:100%;

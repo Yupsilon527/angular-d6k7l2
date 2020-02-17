@@ -1,0 +1,39 @@
+
+<div *ngIf="mobile; else desktopsite">
+    <div *ngIf="picked_nick; else showLogin">
+      <div class="main">
+         <mat-form-field  id="nickname" class="inputboxm">
+            <input matInput #mess placeholder="Type a message..." type="text" maxlength="250"  (keyup.enter)="sendMessage(mess.value); mess.value=''">
+        </mat-form-field>   
+        <button mat-raised-button color="primary"	 class="sendbtnm" (click)="sendMessage(mess.value); mess.value=''">✉</button>         
+      </div>
+    </div>
+    <ng-template #showLogin>
+      <div class="main">
+        <mat-form-field id="nickname" class="inputboxm"  >
+            <input matInput #nick  placeholder="Nickname" type="text" maxlength="30" (keyup.enter)="pickNick(nick.value)">
+        </mat-form-field>   
+      <button mat-raised-button color="primary"	 class="sendbtnm" (click)="pickNick(nick.value)">✓</button>
+      </div>
+    </ng-template>
+</div>
+<ng-template #desktopsite>
+  <div *ngIf="picked_nick; else showLogin">
+      <div class="main">
+         <mat-form-field  id="nickname" class="inputbox">
+            <input matInput #mess placeholder="Type a message..." type="text" maxlength="250"  (keyup.enter)="sendMessage(mess.value); mess.value=''">
+        </mat-form-field>   
+        <button mat-raised-button color="primary"	 class="sendbtn" (click)="sendMessage(mess.value); mess.value=''">Send</button>      
+      </div>
+    </div>
+    <ng-template #showLogin>
+      <div class="main">
+        <mat-form-field id="nickname" class="inputbox"  >
+            <input matInput #nick  placeholder="Nickname" type="text" maxlength="30" (keyup.enter)="pickNick(nick.value)">
+        </mat-form-field>   
+      <button mat-raised-button color="primary"	 class="nickbtn" (click)="pickNick(nick.value)">Pick Nickname</button>
+      </div>
+    </ng-template>
+</ng-template>
+    
+  

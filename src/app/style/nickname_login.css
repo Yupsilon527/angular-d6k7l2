@@ -1,0 +1,24 @@
+
+.main{
+  width:100%;
+}
+
+.inputbox{
+  width:70%;
+}
+
+.sendbtn {
+  width:30%;
+}
+.nickbtn {
+  width:30%;
+}
+
+.inputboxm{
+  width:80%;
+}
+
+.sendbtnm {
+  width:20%;  
+  font-size:25px;
+}
