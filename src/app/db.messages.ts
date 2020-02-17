@@ -15,12 +15,12 @@ export interface Message {  id: string; sender: string; message: string; }
 })
 export class MessageLister   {
   mobileQuery: MediaQueryList;
-  chatrooms = ["messages","example"];
+  chatrooms = ["Chatroom 1","Chatroom 2"];
   items: Observable<Message[]>;
   private _mobileQueryListener: () => void;
 
   constructor(public db: AngularFireDatabase/*,public auth: AngularFireAuth*/,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
-     this.items = this.db.list<Message>(environment.currentChatroom, ref => ref.limitToLast(environment.nmessages)).valueChanges();
+    this.changeChatroom(this.chatrooms[0]);
 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
