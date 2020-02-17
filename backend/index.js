@@ -11,16 +11,21 @@ exports.addMessage = functions.https.onRequest(async (req, res) => {
   res.redirect(303, snapshot.ref.toString());
 });
 
-exports.forceTimeStamp = functions.database.ref('/messages/{pushId}/message')
+exports.forceTimeStamp = functions.database.ref('/{chatroomID}/{pushId}/message')
     .onCreate((snapshot, context) => {
+		//const promises = [];
 		
 		let final_string = snapshot.val()
-		var maxLength = 25 
+		//console.log(final_string)
+		var maxLength = 250 
 		if(final_string.length > maxLength){
-			console.log("string "+final_string+ " is too long!")
+			//console.log("string "+final_string+ " is too long!")
+			if (final_string.lastIndexOf(" ")==0){
+				maxLength = 1000
+			}
 			final_string = final_string.substr(0, maxLength)
 			final_string = final_string.substr(0, Math.min(maxLength, final_string.lastIndexOf(" ")))
-			console.log("trimmed to "+final_string)
+			//console.log("trimmed to "+final_string)
 		}
 		
 		if (snapshot.ref.parent.child('time') === undefined){
@@ -36,6 +41,6 @@ exports.forceTimeStamp = functions.database.ref('/messages/{pushId}/message')
 				console.log(final_string)
 			}
 		});
-		return snapshot.ref.parent.child('message').set(final_string);         
+					
+	  return snapshot.ref.parent.child('message').set(final_string);         
 });
-	
