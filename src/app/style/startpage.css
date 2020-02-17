@@ -1,0 +1,28 @@
+.header{
+  height:50px;
+  position:absolute;
+  padding:0;
+  top:0;
+  left:0;
+}
+.header h1{
+  padding-left:50px;
+}
+
+.messagebox{
+  position:absolute;
+  width:100%;
+  height:calc(100% - 50px);
+  top:0%;
+  left:0%;
+  z-index: 5;
+}
+
+.sendbox{
+  position:absolute;
+  width:96%;
+  height:50px;
+  padding-left:2%;
+  z-index: 10;
+  top:calc(100% - 66px);
+}

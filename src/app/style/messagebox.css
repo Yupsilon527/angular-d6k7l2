@@ -1,0 +1,66 @@
+
+
+.headerbtn{
+  height:50px;
+  width:50px;
+  font-size:25px;
+}
+
+.page{
+  background-color:red;
+  overflow:hidden;
+}
+
+.messagecontainer {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
+  padding-left:2%;
+  padding-right:2%;
+  display: flex;
+  flex-direction: column;
+  overflow-y:auto;
+  position:fixed;
+  height:calc( 100% - 110px);
+}
+
+.message
+{
+  color:grey;  
+  display: block;
+  padding-bottom:2px;
+  width:100%;
+  min-height:20px;
+}
+
+.message:hover
+{
+  background-color:#DDDDDD;  
+}
+
+.name
+{
+  color: black;
+  width:auto;
+  float: left;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+.time
+{
+  position:inherit;
+  color:gray;
+  height:100%;
+  float: left;
+  margin-left: 2%;
+}
+
+.says
+{
+  text-align: left;
+  float: left;
+}
+
+.image {
+  max-width:100%;
+  max-height:200px;
+}

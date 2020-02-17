@@ -1,0 +1,22 @@
+<button mat-icon-button class ="headerbtn" (click)="sidebar.toggle()">📜</button>
+  
+  <mat-sidenav-container>
+    <mat-sidenav #sidebar [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="true" [fixedTopGap]=50 [fixedBottomGap]=50 [autoFocus] =false>
+  <mat-nav-list>
+          <a mat-list-item routerLink="." *ngFor="let item of chatrooms"><button mat-button (click)="changeChatroom(item)">
+              {{item}}
+          </button></a>
+          
+        </mat-nav-list>           
+    </mat-sidenav>
+    <mat-sidenav-content class="messagecontainer">
+      <mat-list-item class="message" *ngFor="let item of getItems() | async">
+        <div *ngIf="!mobile && item.time" class="time">({{ formatDate(item.time) }})</div> 
+        <div class="name">{{ item.sender }} : </div>       
+        <img #imgd class="image" onerror="this.style.display='none'"  [src]="item.message">
+        <span *ngIf="imgd.style.display=='none'" class="says">{{ item.message }}</span>
+        <mat-divider *ngIf="!first || !last"></mat-divider>
+      </mat-list-item> 
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
