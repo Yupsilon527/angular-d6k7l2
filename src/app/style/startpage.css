@@ -12,7 +12,7 @@
 .messagebox{
   position:absolute;
   width:100%;
-  height:calc(100% - 50px);
+  height:calc(100% - 55px);
   top:0%;
   left:0%;
   z-index: 5;
@@ -24,5 +24,5 @@
   height:50px;
   padding-left:2%;
   z-index: 10;
-  top:calc(100% - 66px);
+  top:calc(100% - 70px);
 }

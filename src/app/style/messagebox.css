@@ -9,15 +9,15 @@
 
 .messagecontainer {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
-  padding-left:2%;
-  padding-right:2%;
+  padding-left:5%;
+  padding-right:5%;
   display: flex;
   flex-direction: column;
   overflow-y:auto;
   overflow-x:unset;
   position:fixed;
   height:calc( 100% - 110px);
-  width:96%
+  width:90%
 }
 
 .message
